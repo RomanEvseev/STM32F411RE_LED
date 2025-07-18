@@ -48,6 +48,7 @@
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
+void Flash_LED2(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -94,7 +95,8 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    /* USER CODE END WHILE */
+	Flash_LED2();
+   /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
   }
@@ -173,7 +175,16 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-
+void Flash_LED2(void) {
+	for (int i = 0; i < 7; i++) {
+		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET); // Turn LED on
+		HAL_Delay(100); // Short on time (100ms)
+		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET); // Turn LED off
+		HAL_Delay(100); // Short off time (100ms)
+	}
+	// Longer off period
+	HAL_Delay(1500); // Longer off time (500ms)
+}
 /* USER CODE END 4 */
 
 /**
